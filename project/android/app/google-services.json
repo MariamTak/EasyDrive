@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "767354618776",
+    "project_id": "devmobile-easydrive",
+    "storage_bucket": "devmobile-easydrive.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767354618776:android:70eb6ff87c6b760124a1ed",
+        "android_client_info": {
+          "package_name": "com.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "767354618776-4a2ull060b8dp3bbf0p5gctt40o7tots.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project",
+            "certificate_hash": "87fe23f617e5ce16eb067b13dd6b2fb517766e37"
+          }
+        },
+        {
+          "client_id": "767354618776-61ullrcv7cr2ao0blipl08veo6ecnl1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzvXzY7Qx9mrh4tBZmlNk0c2sZdQ4XcXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "767354618776-61ullrcv7cr2ao0blipl08veo6ecnl1i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
