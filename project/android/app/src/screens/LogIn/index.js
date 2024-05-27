@@ -16,26 +16,24 @@ const LogIn = ({ navigation }) => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: '767354618776-61ullrcv7cr2ao0blipl08veo6ecnl1i.apps.googleusercontent.com',
     });
   }, []);
 
   const onLogin = async () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
-      // Navigate to the main app screen or show a success message
+      navigation.navigate('Container'); // Navigate to the MainScreen
     } catch (error) {
       setMessage(error.message);
     }
   };
-
   const onGoogleRegister = async () => {
     try {
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
       const { idToken } = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredential);
-      // Navigate to the main app screen or show a success message
+      navigation.navigate('Container'); // Navigate to the MainScreen
     } catch (error) {
       setMessage(error.message);
     }
@@ -104,6 +102,7 @@ const LogIn = ({ navigation }) => {
     </View>
   );
 };
+
 
 export default LogIn;
 

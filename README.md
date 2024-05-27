@@ -1,2 +1,0 @@
-# DevMobile
-Projet développement mobile

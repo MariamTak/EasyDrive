@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "767354618776",
-    "project_id": "devmobile-easydrive",
-    "storage_bucket": "devmobile-easydrive.appspot.com"
+    "project_number": "419681689627",
+    "project_id": "easydrive-d5b37",
+    "storage_bucket": "easydrive-d5b37.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:767354618776:android:70eb6ff87c6b760124a1ed",
+        "mobilesdk_app_id": "1:419681689627:android:1073c002a6d2b301f118be",
         "android_client_info": {
           "package_name": "com.project"
         }
       },
       "oauth_client": [
         {
-          "client_id": "767354618776-4a2ull060b8dp3bbf0p5gctt40o7tots.apps.googleusercontent.com",
+          "client_id": "419681689627-rq0qnpr1iaed5tbb85hfk3furao23r7p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.project",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "767354618776-61ullrcv7cr2ao0blipl08veo6ecnl1i.apps.googleusercontent.com",
+          "client_id": "419681689627-2j7td6hdrb67t2ee0f3e9tom324m56ue.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBzvXzY7Qx9mrh4tBZmlNk0c2sZdQ4XcXU"
+          "current_key": "AIzaSyBKmJ0SsMoQlzMlji-fB_c6qg8kZDRnxGE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "767354618776-61ullrcv7cr2ao0blipl08veo6ecnl1i.apps.googleusercontent.com",
+              "client_id": "419681689627-2j7td6hdrb67t2ee0f3e9tom324m56ue.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

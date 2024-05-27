@@ -34,6 +34,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import GetStarted from './android/app/src/screens/GetStarted';
 import SignUp from './android/app/src/screens/SignUp';
 import LogIn from './android/app/src/screens/LogIn';
+import Container from './android/app/src/screens/Navigation/Container';
 const Stack = createStackNavigator();
 
 
@@ -47,6 +48,8 @@ function App(): React.JSX.Element {
 <Stack.Screen name='GetStarted' component={GetStarted} options={{headerShown : false}}/>
 <Stack.Screen name='SignUp' component={SignUp} options={{headerShown : false}}/>
 <Stack.Screen name='LogIn' component={LogIn} options={{headerShown : false}}/>
+
+<Stack.Screen name="Container" component={Container} options={{headerShown : false}}/>
 
 </Stack.Navigator>
 </NavigationContainer>

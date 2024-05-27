@@ -24,7 +24,7 @@ const GetStarted = () => {
       <View style={styles.bottomHalf}>
         <Text style={styles.text}>Votre voiture idéale à portée de clic !</Text>
         <View style={styles.buttonContainer}>
-          <StartButton label={'Commencer'}/>
+          <StartButton label={'Commencer'} onPress={() => navigation.navigate('Container')} />
         </View>
       </View>
     </View>

@@ -1,52 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const Stack = createStackNavigator();
+import auth from '@react-native-firebase/auth';
 
 const SignUp = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: '767354618776-61ullrcv7cr2ao0blipl08veo6ecnl1i.apps.googleusercontent.com',
+      webClientId: "419681689627-rq0qnpr1iaed5tbb85hfk3furao23r7p.apps.googleusercontent.com",
     });
   }, []);
 
-  const onGoogleButtonPress = async () => {
-    // Check if your device supports Google Play
-    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-    // Get the user's ID token
-    const { idToken } = await GoogleSignin.signIn();
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
-  };
-
   const handleSignUp = async () => {
+    if (!email || !password || !fullName) {
+      setMessage('Veuillez remplir tous les champs');
+      return;
+    }
     try {
       const userCredential = await auth().createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-      await user.updateProfile({ displayName: fullName });
-      Alert.alert('Success', 'Account created successfully!');
-      navigation.navigate('Home');
+      await userCredential.user.updateProfile({ displayName: fullName });
+      navigation.navigate('Container');
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        Alert.alert('Error', 'That email address is already in use!');
-      } else if (error.code === 'auth/invalid-email') {
-        Alert.alert('Error', 'That email address is invalid!');
-      } else {
-        Alert.alert('Error', error.message);
-      }
-      console.error(error);
+      console.error("Error during email sign-up:", error);
+      setMessage(error.message);
+    }
+  };
+
+  const onGoogleButtonPress = async () => {
+    try {
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      const { idToken } = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      await auth().signInWithCredential(googleCredential);
+      navigation.navigate('Container');
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+      setMessage(error.message);
     }
   };
 
@@ -100,6 +95,7 @@ const SignUp = ({ navigation }) => {
             <Icon name={passwordVisible ? "eye" : "eye-slash"} size={20} color="grey" />
           </TouchableOpacity>
         </View>
+        {message ? <Text style={styles.message}>{message}</Text> : null}
         <TouchableOpacity style={styles.registerButton} onPress={handleSignUp}>
           <Text style={styles.registerButtonText}>S'inscrire</Text>
         </TouchableOpacity>
@@ -125,18 +121,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
   },
-  header: {
-    marginTop: 60,
-    marginBottom: 40,
+  imageContainer: {
+    alignItems: 'center',
+    marginVertical: 0,
   },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  subHeaderText: {
-    fontSize: 14,
-    color: 'grey',
-    marginTop: 5,
+  image: {
+    width: 300,
+    height: 200,
   },
   form: {
     flex: 1,
@@ -151,14 +142,6 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     paddingBottom: 10,
     alignItems: 'center',
-  },
-  imageContainer: {
-    alignItems: 'center',
-    marginVertical: 0,
-  },
-  image: {
-    width: 300,
-    height: 200,
   },
   activeTabText: {
     fontWeight: 'bold',
@@ -215,5 +198,10 @@ const styles = StyleSheet.create({
   socialIcon: {
     width: 30,
     height: 30,
+  },
+  message: {
+    color: 'red',
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });
