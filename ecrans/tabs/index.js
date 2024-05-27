@@ -1,48 +1,54 @@
-import React from 'react'
+import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Inscription from '../inscription';
+import Icons from 'react-native-vector-icons/Ionicons';
+import CarDetailsScreen from '../description';
+import RegisterScreen from '../register';
+import RegistrationScreen from '../immatriculation';
+import LoginScreen from '../login';
+
 const Tab = createMaterialBottomTabNavigator();
 
 const BouttonTabs = () => {
     return (
         <Tab.Navigator
-          initialRouteName="Inscriptionhome"
-          activeColor="#e91e63"
-          barStyle={{ backgroundColor: 'tomato' }}
+            initialRouteName="Inscriptionhome"
+            activeColor="grey"
+            shifting={false} // Ajouté pour afficher les labels sous les icônes
+            barStyle={{ backgroundColor: 'white', height: 70 }} // Modifié pour la couleur et la hauteur
         >
-          <Tab.Screen
-            name="Inscriptionhome"
-            component={Inscription}
-            options={{
-              tabBarLabel: 'Home',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={color} size={26} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Inscriptionupdate"
-            component={Inscription}
-            options={{
-              tabBarLabel: 'Updates',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="bell" color={color} size={26} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Inscriptionaccount"
-            component={Inscription}
-            options={{
-              tabBarLabel: 'Inscription',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="account" color={color} size={26} />
-              ),
-            }}
-          />
+            <Tab.Screen
+                name="Propriétaire"
+                component={LoginScreen}
+                options={{
+                    tabBarLabel: 'Propriétaire',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="car-back" color={'black'} size={26} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Location"
+                component={LoginScreen}
+                options={{
+                    tabBarLabel: 'Location',
+                    tabBarIcon: ({ color }) => (
+                        <Icons name="search-sharp" color={'black'} size={26} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Compte"
+                component={LoginScreen}
+                options={{
+                    tabBarLabel: 'Compte',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="account" color={'black'} size={26} />
+                    ),
+                }}
+            />
         </Tab.Navigator>
-      );
+    );
 }
 
 export default BouttonTabs;

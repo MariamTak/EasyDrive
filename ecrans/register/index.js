@@ -23,6 +23,7 @@ const RegisterScreen = ({ navigation }) => {
       auth().createUserWithEmailAndPassword(email, password)
         .then(() => {
           Alert.alert('Inscription réussie');
+          navigation.navigate('RegistrationScreen'); 
         })
         .catch(error => {
           Alert.alert('Erreur', error.message);
@@ -55,7 +56,7 @@ const RegisterScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={require('../../assets/login.jpg')} resizeMode='contain' style={styles.image} />
+        <Image source={require('../../assets/login3.jpg')} resizeMode='contain' style={styles.image} />
       </View>
       <View style={styles.form}>
         <View style={styles.tabContainer}>

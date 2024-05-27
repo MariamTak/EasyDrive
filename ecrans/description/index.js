@@ -1,65 +1,94 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { BlurView } from '@react-native-community/blur';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 
 const CarDetailsScreen = () => {
+  const navigation = useNavigation();
+
+
+
+  const handleClose = () => {
+    navigation.navigate('RegistrationScreen') 
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
+      <View style={styles.header}>
+        
+        <TouchableOpacity onPress={handleClose}>
+          <Icon name="close" size={20} color="grey" />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.desc}>Description{"\n"}</Text>
+      <Text style={styles.Label} >Volkswagen Golf{"\n"}</Text>
+
       <Image
-        source={require('../../assets/voiture.jpeg')}
+        source={require('../../assets/car.jpg')}
         style={styles.carImage}
       />
       <View style={styles.infoContainer}>
         <Text style={styles.ownerLabel}>Propriétaire:</Text>
-        <Text style={styles.ownerName}>Ahmed.......</Text>
-        <TouchableOpacity style={styles.phoneButton}>
-          <Text style={styles.phoneButtonText}>Afficher numéro</Text>
-        </TouchableOpacity>
+        <Text style={styles.ownerName}>IDRISSI Ahmed</Text>
       </View>
+      
+      <Text style={styles.ownerLabel}>Description:{"\n"}</Text>
       <Text style={styles.description}>
         Mercedes-Benz est synonyme d'excellence automobile. C'est pour ça que nous l'avons choisi comme référence pour nos véhicules pour qu'ils puissent combiner entre une performance exemplaire et un luxe de premier ordre avec des normes de sécurité impeccables et des références environnementales exceptionnelles.
       </Text>
       <Text style={styles.specsLabel}>Spécification:</Text>
       <View style={styles.specsContainer}>
-        <BlurView blurType="light" blurAmount={10} style={styles.specItemBlur}>
-          <View style={styles.specItem}>
-            <Text style={styles.specText}>4 Places</Text>
-          </View>
-        </BlurView>
-        <BlurView blurType="light" blurAmount={10} style={styles.specItemBlur}>
-          <View style={styles.specItem}>
-            <Text style={styles.specText}>Essence</Text>
-          </View>
-        </BlurView>
-        <BlurView blurType="light" blurAmount={10} style={styles.specItemBlur}>
-          <View style={styles.specItem}>
-            <Text style={styles.specText}>Manuel</Text>
-          </View>
-        </BlurView>
-        <BlurView blurType="light" blurAmount={10} style={styles.specItemBlur}>
-          <View style={styles.specItem}>
-            <Text style={styles.specText}>64L</Text>
-          </View>
-        </BlurView>
-        <BlurView blurType="light" blurAmount={10} style={styles.specItemBlur}>
-          <View style={styles.specItem}>
-            <Text style={styles.specText}>10000 KM</Text>
-          </View>
-        </BlurView>
-        <BlurView blurType="light" blurAmount={10} style={styles.specItemBlur}>
-          <View style={styles.specItem}>
-            <Text style={styles.specText}>325 Km/h</Text>
-          </View>
-        </BlurView>
+        <View style={styles.specItem}>
+          <Text style={styles.specText}>4 Places</Text>
+        </View>
+        <View style={styles.specItem}>
+          <Text style={styles.specText}>Essence</Text>
+        </View>
+        <View style={styles.specItem}>
+          <Text style={styles.specText}>Manuel</Text>
+        </View>
+        <View style={styles.specItem}>
+          <Text style={styles.specText}>64L</Text>
+        </View>
+        <View style={styles.specItem}>
+          <Text style={styles.specText}>10000 KM</Text>
+        </View>
+        <View style={styles.specItem}>
+          <Text style={styles.specText}>325 Km/h</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Modelvoiture')}>
+          <Text style={styles.buttonText}>Réserver</Text>
+        </TouchableOpacity>
+      </View>
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  desc: {
+    color: '#5E77AA',
+    fontWeight: 'bold',
+    fontSize: 20, 
+  },
+  scrollView: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
   container: {
     padding: 16,
     backgroundColor: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginLeft: 'auto', 
+
+  },
+  arrowIcon: {
+    marginLeft: 'auto', 
   },
   carImage: {
     width: '100%',
@@ -73,11 +102,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   ownerLabel: {
+    color: 'black',
     fontWeight: 'bold',
     marginRight: 8,
   },
   ownerName: {
     flex: 1,
+    color: 'black',
   },
   phoneButton: {
     backgroundColor: '#5E77AA',
@@ -90,10 +121,17 @@ const styles = StyleSheet.create({
   description: {
     marginBottom: 16,
     textAlign: 'justify',
+    color: 'black',
+    backgroundColor: '#f0f0f0',
+    padding: 8,
+    borderRadius: 8,
+    marginBottom: 8,
+    width: '100%',
   },
   specsLabel: {
     fontWeight: 'bold',
     marginBottom: 8,
+    color: 'black',
   },
   specsContainer: {
     flexDirection: 'row',
@@ -101,19 +139,35 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   specItem: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#f0f0f0',
     padding: 8,
     borderRadius: 8,
     marginBottom: 8,
     width: '48%',
   },
-  specItemBlur: {
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
   specText: {
     textAlign: 'center',
   },
+  button: {
+   width:365,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#5E77AA',
+    borderRadius: 8,
+    marginTop: 24,
+    
+    
+    right: 0,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  Label:{
+    color: 'black',
+    fontWeight: 'bold',
+    marginRight: 18,
+  }
 });
 
 export default CarDetailsScreen;

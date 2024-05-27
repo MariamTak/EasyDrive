@@ -12,7 +12,7 @@ const Splash = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../../assets/page1.jpg')} style={styles.image}>
+      <ImageBackground source={require('../../assets/EasyDrive.png')} style={styles.image}>
       </ImageBackground>
     </View>
   );
@@ -22,11 +22,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#5E77AA', // Background color
+    
   },
   image: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center', // Center the image horizontally and vertically
+    alignItems: 'center', 
+    width: 90,
+    height: 90,
   },
 });
 

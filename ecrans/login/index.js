@@ -32,6 +32,7 @@ const LoginScreen = ({ navigation }) => {
         // L'utilisateur existe, tentative de connexion
         await auth().signInWithEmailAndPassword(email, password);
         setMessage('Connexion réussie!');
+        navigation.navigate('RegistrationScreen'); 
       } else {
         setMessage("L'utilisateur n'existe pas. Veuillez vous inscrire d'abord.");
       }
@@ -69,7 +70,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer} >
-        <Image source={require('../../assets/login2.jpg')} resizeMode='contain' style={styles.image}/>
+        <Image source={require('../../assets/login3.jpg')} resizeMode='contain' style={styles.image}/>
       </View>
       <View style={styles.form}>
         <View style={styles.tabContainer}>
