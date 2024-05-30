@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,28 +12,37 @@ const LogIn = ({ navigation }) => {
   const [message, setMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  useEffect(() => {
-    GoogleSignin.configure({
-    });
-  }, []);
+  const handleLogin = async () => {
+    const loginDetails = { email, password };
 
-  const onLogin = async () => {
     try {
-      await auth().signInWithEmailAndPassword(email, password);
-      navigation.navigate('Container'); // Navigate to the MainScreen
+      const response = await fetch('http://10.0.2.2:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginDetails),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Login successful');
+        console.log("id:", data.id); // Ensure data.userId exists and is logged correctly
+
+        navigation.navigate('Container', { 
+          id:data.id,
+          fullName: data.fullName, 
+          email: email, 
+          phoneNumber: data.phoneNumber, 
+          password: password 
+        });
+      } else {
+        console.error('Invalid credentials');
+        setMessage('Invalid credentials');
+      }
     } catch (error) {
-      setMessage(error.message);
-    }
-  };
-  const onGoogleRegister = async () => {
-    try {
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const { idToken } = await GoogleSignin.signIn();
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      await auth().signInWithCredential(googleCredential);
-      navigation.navigate('Container'); // Navigate to the MainScreen
-    } catch (error) {
-      setMessage(error.message);
+      console.error('Error during login', error);
+      setMessage('Error during login');
     }
   };
 
@@ -83,13 +92,13 @@ const LogIn = ({ navigation }) => {
             <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.registerButton} onPress={onLogin}>
+        <TouchableOpacity style={styles.registerButton} onPress={handleLogin}>
           <Text style={styles.registerButtonText}>Se connecter</Text>
         </TouchableOpacity>
         {message ? <Text style={styles.message}>{message}</Text> : null}
         <Text style={styles.orText}>Ou</Text>
         <View style={styles.socialContainer}>
-          <TouchableOpacity style={styles.socialButton} onPress={onGoogleRegister}>
+          <TouchableOpacity style={styles.socialButton}>
             <Image source={require('../../assets/google.png')} style={styles.socialIcon} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.socialButton}>
@@ -100,7 +109,6 @@ const LogIn = ({ navigation }) => {
     </View>
   );
 };
-
 
 export default LogIn;
 

@@ -1,21 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { useRoute } from '@react-navigation/native';
 const SignUp = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [message, setMessage] = useState('');
+  const route = useRoute();
+  const handleSubmit = async () => {
+    const userDetails = { phoneNumber, email, fullName, password };
 
+    try {
+      const response = await fetch('http://10.0.2.2:8080/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userDetails),
+      });
 
-
-
+      if (response.ok) {
+        console.log('Données envoyées avec succès');
+        navigation.navigate('Container', { fullName: fullName, email: email, phoneNumber: phoneNumber, password: password});
+      } else {
+        console.error('Erreur lors de l\'envoi des données');
+        setMessage('Erreur lors de l\'envoi des données');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi des données', error);
+      setMessage('Erreur lors de l\'envoi des données');
+    }
+  };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
@@ -52,6 +73,16 @@ const SignUp = ({ navigation }) => {
           />
         </View>
         <View style={styles.inputContainer}>
+          <Icon name="phone" size={20} color="grey" />
+          <TextInput
+            style={styles.input}
+            placeholder="Numéro de téléphone"
+            keyboardType="phone-pad"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+          />
+        </View>
+        <View style={styles.inputContainer}>
           <Icon name="lock" size={20} color="grey" />
           <TextInput
             style={styles.input}
@@ -65,12 +96,12 @@ const SignUp = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         {message ? <Text style={styles.message}>{message}</Text> : null}
-        <TouchableOpacity style={styles.registerButton} onPress={handleSignUp}>
+        <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
           <Text style={styles.registerButtonText}>S'inscrire</Text>
         </TouchableOpacity>
         <Text style={styles.orText}>Ou</Text>
         <View style={styles.socialContainer}>
-          <TouchableOpacity style={styles.socialButton} onPress={onGoogleButtonPress}>
+          <TouchableOpacity style={styles.socialButton}>
             <Image source={require('../../assets/google.png')} style={styles.socialIcon} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.socialButton}>
@@ -78,7 +109,7 @@ const SignUp = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -86,13 +117,13 @@ export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: 'white',
     padding: 20,
   },
   imageContainer: {
     alignItems: 'center',
-    marginVertical: 0,
+    marginVertical: 20,
   },
   image: {
     width: 300,

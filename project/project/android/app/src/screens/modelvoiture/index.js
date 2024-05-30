@@ -4,11 +4,14 @@ import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import RegistrationScreen from '../immatriculation';
-
+import { useRoute } from '@react-navigation/native';
 const Modelvoiture = () => {
   const [marque, setmarque] = useState('Volkswagen');
-  const [model, setmodel] = useState('Golf');
+  const [modele, setmodele] = useState('Golf');
   const navigation = useNavigation();
+  const route = useRoute();
+  const {id} = route.params; 
+  console.log("id:", id); // Logging id here
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -18,7 +21,7 @@ const Modelvoiture = () => {
     navigation.navigate('CarDetailsScreen');
   };
 
-  const modelsByBrand = {
+  const modelesByBrand = {
     Volkswagen: ['Golf', 'Passat', 'Tiguan'],
     BMW: ['3 Series', '5 Series', 'X5'],
     Audi: ['A4', 'A6', 'Q5'],
@@ -53,10 +56,10 @@ const Modelvoiture = () => {
           style={styles.picker}
           onValueChange={(itemValue) => {
             setmarque(itemValue);
-            setmodel(modelsByBrand[itemValue][0]);
+            setmodele(modelesByBrand[itemValue][0]);
           }}
         >
-          {Object.keys(modelsByBrand).map((brand) => (
+          {Object.keys(modelesByBrand).map((brand) => (
             <Picker.Item label={brand} value={brand} key={brand} />
           ))}
         </Picker>
@@ -65,18 +68,18 @@ const Modelvoiture = () => {
       <View style={styles.pickerContainer}>
         <Text style={styles.pickerLabel}>Modèle</Text>
         <Picker
-          selectedValue={model}
+          selectedValue={modele}
           style={styles.picker}
-          onValueChange={(itemValue) => setmodel(itemValue)}
+          onValueChange={(itemValue) => setmodele(itemValue)}
         >
-          {modelsByBrand[marque].map((model) => (
-            <Picker.Item label={model} value={model} key={model} />
+          {modelesByBrand[marque].map((modele) => (
+            <Picker.Item label={modele} value={modele} key={modele} />
           ))}
         </Picker>
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RegistrationScreen')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RegistrationScreen', {marque: marque, modele: modele, id:id})}>
           <Text style={styles.buttonText}>Suivant</Text>
         </TouchableOpacity>
       </View>

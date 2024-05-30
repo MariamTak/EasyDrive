@@ -12,8 +12,10 @@ const ownerName = "Propriétaire";
 const compteName = "Compte";
 
 const Tab = createBottomTabNavigator();
+function Container({ route }) {
+  const { id } = route.params;
+  console.log("id:", id); // Logging id here
 
-function Container() {
   return (
     <Tab.Navigator
       initialRouteName={homeName}
@@ -46,7 +48,7 @@ function Container() {
         headerShown: false
       })}
     >
-      <Tab.Screen name={ownerName} component={Owner} />
+      <Tab.Screen name={ownerName} component={Owner} initialParams={{ id:id }} />
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={compteName} component={Compte} />
     </Tab.Navigator>

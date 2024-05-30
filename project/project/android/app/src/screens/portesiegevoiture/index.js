@@ -2,13 +2,25 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useRoute } from '@react-navigation/native';
 
 const Portesiegevoiture = () => {
   const [selectedDoors, setSelectedDoors] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState(null);
-  const [isTrunkIncluded, setIsTrunkIncluded] = useState(false);
   const navigation = useNavigation();
+  const route = useRoute();
+  const { marque, modele, id, country, year, immatriculation, kilometrage, carburant, boite } = route.params;
+  const voitureDetails = { marque, modele, id, country, year, immatriculation, kilometrage, carburant, boite, selectedDoors, selectedSeats };
+
+  console.log("id:", id); 
+  console.log("modele:", modele); 
+  console.log("marque:", marque);
+  console.log("country:", country); 
+  console.log("year:", year); 
+  console.log("immatriculation:", immatriculation); 
+  console.log("kilometrage:", kilometrage); 
+  console.log("carburant:", carburant); 
+  console.log("boite:", boite); 
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -26,10 +38,6 @@ const Portesiegevoiture = () => {
     setSelectedSeats(number);
   };
 
-  const handleTrunkToggle = () => {
-    setIsTrunkIncluded(!isTrunkIncluded);
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.titleContainer}>
@@ -42,7 +50,7 @@ const Portesiegevoiture = () => {
       </View>
       <Text style={styles.header}>Ajoutez plus de détails</Text>
 
-      <Text style={styles.subHeader}>Nombre de portes ( exclure le coffre) </Text>
+      <Text style={styles.subHeader}>Nombre de portes (exclure le coffre)</Text>
       <View style={styles.selectionContainer}>
         {[1, 2, 3, 4].map((number) => (
           <TouchableOpacity
@@ -61,13 +69,10 @@ const Portesiegevoiture = () => {
             >
               {number}
             </Text>
-            {selectedDoors === number && isTrunkIncluded && (
-              <Icon3 name="car-hatchback" size={20} color="grey" style={styles.trunkIcon} />
-            )}
           </TouchableOpacity>
         ))}
       </View>
-      
+
       <Text style={styles.subHeader}>Nombre de sièges</Text>
       <View style={styles.selectionContainer}>
         {[2, 3, 4, 5, 6, 7, 8].map((number) => (
@@ -93,7 +98,7 @@ const Portesiegevoiture = () => {
 
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => navigation.navigate('Questionagence')}
+        onPress={() => navigation.navigate('Questionagence', voitureDetails)}
       >
         <Text style={styles.submitButtonText}>Suivant</Text>
       </TouchableOpacity>
@@ -145,19 +150,7 @@ const styles = StyleSheet.create({
   selectedButtonText: {
     color: '#007BFF',
   },
-  trunkIcon: {
-    position: 'absolute',
-    top: -10,
-    right: -10,
-  },
-  trunkToggleButton: {
-    marginBottom: 24,
-  },
-  trunkToggleText: {
-    fontSize: 16,
-    color: '#007BFF',
-    textDecorationLine: 'underline',
-  },
+ 
   submitButton: {
     width: '40%',
     height: 50,

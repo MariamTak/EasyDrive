@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "419681689627",
+    "project_id": "easydrive-d5b37",
+    "storage_bucket": "easydrive-d5b37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419681689627:android:1073c002a6d2b301f118be",
+        "android_client_info": {
+          "package_name": "com.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419681689627-rq0qnpr1iaed5tbb85hfk3furao23r7p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project",
+            "certificate_hash": "87fe23f617e5ce16eb067b13dd6b2fb517766e37"
+          }
+        },
+        {
+          "client_id": "419681689627-2j7td6hdrb67t2ee0f3e9tom324m56ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKmJ0SsMoQlzMlji-fB_c6qg8kZDRnxGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419681689627-2j7td6hdrb67t2ee0f3e9tom324m56ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

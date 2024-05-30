@@ -3,8 +3,13 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react
 import LogIn from '../LogIn';
 import Modelvoiture from '../modelvoiture';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 
 const Owner = ({ LogIn }) => {
+  const route = useRoute();
+  const { id } = route.params;
+  console.log("id:", id); // Logging id here
+
   const navigation = useNavigation();
 
   return (
@@ -12,7 +17,7 @@ const Owner = ({ LogIn }) => {
       <View style={styles.container}>
       <TouchableOpacity
           style={styles.rentButton}
-          onPress={() => navigation.navigate('Modelvoiture')}
+          onPress={() => navigation.navigate('Modelvoiture', { id:id})}
         >
           <Text style={styles.rentButtonText}>Louer ma voiture</Text>
         </TouchableOpacity>

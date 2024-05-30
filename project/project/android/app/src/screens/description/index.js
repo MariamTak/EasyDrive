@@ -9,7 +9,7 @@ const CarDetailsScreen = () => {
 
 
   const handleClose = () => {
-    navigation.navigate('RegistrationScreen') 
+    navigation.navigate('Container') 
   };
 
   return (
@@ -24,7 +24,7 @@ const CarDetailsScreen = () => {
       <Text style={styles.Label} >Volkswagen Golf{"\n"}</Text>
 
       <Image
-        source={require('../../assets/car.jpg')}
+        source={require('../../assets/owner.jpg')}
         style={styles.carImage}
       />
       <View style={styles.infoContainer}>
@@ -57,7 +57,7 @@ const CarDetailsScreen = () => {
           <Text style={styles.specText}>325 Km/h</Text>
         </View>
         <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Modelvoiture')}>
+        <TouchableOpacity style={styles.button} >
           <Text style={styles.buttonText}>Réserver</Text>
         </TouchableOpacity>
       </View>
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   },
   button: {
    width:365,
+   height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#5E77AA',

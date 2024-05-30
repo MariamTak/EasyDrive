@@ -50,6 +50,7 @@ import Voitureindisponible from './android/app/src/screens/voitureindisponible';
 import SuccessPage from './android/app/src/screens/SuccessPage';
 import MesVoitures from './android/app/src/screens/Mesvoitures/Mesvoitures';
 import Gererannonce from './android/app/src/screens/gererannonce';
+import CarDetailsScreen from './android/app/src/screens/description';
 const Stack = createStackNavigator();
 
 
@@ -81,6 +82,7 @@ function App(): React.JSX.Element {
 <Stack.Screen name="SuccessPage" component={SuccessPage} options={{headerShown : false}} />
 <Stack.Screen name="MesVoitures" component={MesVoitures} options={{headerShown : false}} />
 <Stack.Screen name="Gererannonce" component={Gererannonce} options={{headerShown : false}} />
+<Stack.Screen name="CarDetailsScreen" component={CarDetailsScreen} options={{headerShown : false}} />
 
 
 

@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { SelectList } from 'react-native-dropdown-select-list';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const SearchPlace = () => {
+const SearchPlace = ({setLieu}) => {
   const [selected, setSelected] = React.useState("");
 
   const cities = [
@@ -77,7 +77,10 @@ const SearchPlace = () => {
   return (
     <View style={styles.container}>
       <SelectList 
-        setSelected={(val) => setSelected(val)} 
+        setSelected={(val) => {
+          setSelected(val);
+        setLieu(val);} }
+
         data={cities} 
         save="value"
         placeholder="Sélectionnez une ville"

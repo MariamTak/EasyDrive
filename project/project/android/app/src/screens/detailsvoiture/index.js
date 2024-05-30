@@ -2,14 +2,24 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
 import Icon2 from 'react-native-vector-icons/Ionicons';
-import Portesiegevoiture from '../portesiegevoiture';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Detailsvoiture = () => {
   const [carburant, setCarburant] = useState('Diesel');
-  const [boite, setBoite] = useState('Manuelle'); // Initial state for the gearbox type
+  const [boite, setBoite] = useState('Manuelle'); 
   const navigation = useNavigation();
+  const route = useRoute();
+  const { marque, modele, id, country, year, immatriculation, kilometrage } = route.params; 
+  const voitureDetails = { marque, modele, id, country, year, immatriculation, kilometrage, carburant, boite };
+
+  console.log("id:", id); 
+  console.log("modele:", modele); 
+  console.log("marque:", marque);
+  console.log("country:", country); 
+  console.log("year:", year); 
+  console.log("immatriculation:", immatriculation); 
+  console.log("kilometrage:", kilometrage);  
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -78,7 +88,7 @@ const Detailsvoiture = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Portesiegevoiture')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Portesiegevoiture', voitureDetails)}>
           <Text style={styles.buttonText}>Suivant</Text>
         </TouchableOpacity>
       </View>

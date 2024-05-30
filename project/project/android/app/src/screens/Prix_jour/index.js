@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const Prixjour = () => {
-  const navigation = useNavigation(); 
-  const [prix, setprix] = useState('');
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { voitureDetails } = route.params;
+  const { marque, modele, id, country, year, immatriculation, kilometrage, carburant, boite, selectedDoors, selectedSeats, agence, lieu } = voitureDetails;
+  const [prix, setPrix] = useState('');
 
+  const updatedVoitureDetails = { ...voitureDetails, prix };
+  console.log("id:", id); 
+  console.log("modele:", modele); 
+  console.log("marque:", marque);
+  console.log("country:", country); 
+  console.log("year:", year); 
+  console.log("immatriculation:", immatriculation); 
+  console.log("kilometrage:", kilometrage); 
+  console.log("carburant:", carburant); 
+  console.log("boite:", boite); 
+  console.log("selectedDoors:", selectedDoors); 
+  console.log("selectedSeats:", selectedSeats); 
+  console.log("agence:", agence); 
+  console.log("lieu:", lieu); 
   const handleGoBack = () => {
     navigation.goBack();
   };
@@ -25,21 +42,22 @@ const Prixjour = () => {
           <Icon name="close" size={20} color="grey" />
         </TouchableOpacity>
       </View>
-      <Text style={styles.title}>Définissez vos prix par jour {"\n"}</Text>
-
+      <Text style={styles.title}>Définissez vos prix par jour{"\n"}</Text>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder="Entrer le prix"
           value={prix}
-          onChangeText={setprix}
+          onChangeText={setPrix}
           keyboardType="numeric"
         />
         <Text style={styles.currency}>MAD</Text>
       </View>
-      
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Annoncevoiture')}>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('Voitureindisponible', { voitureDetails: updatedVoitureDetails })}
+        >
           <Text style={styles.buttonText}>Suivant</Text>
         </TouchableOpacity>
       </View>
@@ -94,7 +112,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#5E77AA',
     borderRadius: 8,
     marginTop: 24,
-    bottom:-400,
+    position: 'absolute',
+    bottom: 20,
   },
   buttonText: {
     color: '#fff',

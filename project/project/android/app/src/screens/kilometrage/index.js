@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
-import Detailsvoiture from '../detailsvoiture';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Kilometragevoiture = () => {
   const [kilometrage, setKilometrage] = useState('0-50 000 km');
-  
+
+  const route = useRoute();
+  const { marque, modele, id, country, year, immatriculation } = route.params; 
   const navigation = useNavigation();
+  const voitureDetails = { marque, modele, id, country, year, immatriculation, kilometrage };
+
+  console.log("id:", id); 
+  console.log("modele:", modele); 
+  console.log("marque:", marque);
+  console.log("country:", country); 
+  console.log("year:", year); 
+  console.log("immatriculation:", immatriculation);  
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -28,7 +37,9 @@ const Kilometragevoiture = () => {
           <Icon name="close" size={20} color="grey" />
         </TouchableOpacity>
       </View>
-      <View><Text style={styles.title}>Le kilométrage est-il juste ?{"\n"}</Text></View>
+      <View>
+        <Text style={styles.title}>Le kilométrage est-il juste ?{"\n"}</Text>
+      </View>
 
       <View style={styles.pickerContainer}>
         <Text style={styles.pickerLabel}>Kilométrage</Text>
@@ -50,7 +61,7 @@ const Kilometragevoiture = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detailsvoiture')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detailsvoiture', voitureDetails)}>
           <Text style={styles.buttonText}>Suivant</Text>
         </TouchableOpacity>
       </View>

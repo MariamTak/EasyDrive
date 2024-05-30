@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import CarDetailsScreen from '../screens/description';
+import { useNavigation } from '@react-navigation/native';
 const CarItem = ({ image, name, price, rating, numReviews }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -20,7 +23,7 @@ const CarItem = ({ image, name, price, rating, numReviews }) => {
         </View>
 
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Consulter</Text>
+          <Text style={styles.buttonText}onPress={() => navigation.navigate('CarDetailsScreen')}>Consulter</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -4,11 +4,20 @@ import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import Kilometragevoiture from '../kilometrage';
-
+import { useRoute } from '@react-navigation/native';
 const RegistrationScreen = () => {
   const [country, setCountry] = useState('Maroc');
   const [year, setYear] = useState('2019');
+  const [immatriculation, setImmatriculation] = useState('');
+
   const navigation = useNavigation();
+  const route = useRoute();
+  const { marque, modele, id} = route.params; 
+  console.log("id:", id); 
+  console.log("modele:", modele); 
+
+  console.log("marque:", marque); 
+
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -39,9 +48,11 @@ const RegistrationScreen = () => {
 
       <TextInput
         style={styles.input}
+        placeholder="Immatriculation"
         placeholderTextColor="#000"
+        value={immatriculation}
+        onChangeText={setImmatriculation}
       />
-
       <View style={styles.pickerContainer}>
         <Text style={styles.pickerLabel}>Pays d’immatriculation</Text>
         <Picker
@@ -73,7 +84,7 @@ const RegistrationScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Kilometragevoiture')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Kilometragevoiture',{marque: marque, modele:modele, country: country, year:year,id: id, immatriculation: immatriculation})}>
           <Text style={styles.buttonText}>Suivant</Text>
         </TouchableOpacity>
       </View>

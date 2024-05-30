@@ -7,8 +7,10 @@ import CarBrand from '../../components/CarBrand';
 import CarModel from '../../components/CarModel';
 import TransmissionType from '../../components/TransmissionType';
 import CarItem from '../../components/CarItem';
-
+import { useNavigation } from '@react-navigation/native';
 const Home = () => {
+  const navigation = useNavigation();
+
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState('');
 

@@ -1,19 +1,87 @@
-import React, { useState } from 'react';
+
+  import React, { useState } from 'react';
 import { View, Text, Modal, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-const Voitureindisponible = ({ visible, onClose }) => {
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+const Voitureindisponible = ({ visible}) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const navigation = useNavigation();
-  const handleClose = () => {
-    // Navigate to Annoncevoiture screen
-    navigation.navigate('Annoncevoiture');
+  const route = useRoute();
+  const {
+    marque, modele, id, country, year, immatriculation, kilometrage,
+    carburant, boite, selectedDoors, selectedSeats, agence, lieu,
+    prix
+  } = route.params.voitureDetails;
+
+  const voitureDetails = {
+    marque, modele, id, country, year, immatriculation, kilometrage,
+    carburant, boite, selectedDoors, selectedSeats, agence, lieu,
+    prix, startDate, endDate
   };
+
+  console.log("id:", id); 
+  console.log("modele:", modele); 
+  console.log("marque:", marque);
+  console.log("country:", country); 
+  console.log("year:", year); 
+  console.log("immatriculation:", immatriculation); 
+  console.log("kilometrage:", kilometrage); 
+  console.log("carburant:", carburant); 
+  console.log("boite:", boite); 
+  console.log("selectedDoors:", selectedDoors); 
+  console.log("selectedSeats:", selectedSeats); 
+  console.log("agence:", agence); 
+  console.log("lieu:", lieu); 
+  console.log("prix:", prix);
+  console.log("startDate:", startDate);
+  console.log("endDate:", endDate);
+
+  const handleSave = async () => {
+    const availabilityData = {
+      startDate: startDate,
+      endDate: endDate,
+      marque:marque,
+      modele:modele,
+      immatriculation:immatriculation,
+      country:country,
+      year:year,
+      kilometrage:kilometrage,
+      carburant:carburant,
+      boite:boite,
+      selectedDoors:selectedDoors,
+      selectedSeats:selectedSeats,
+      agence:agence,
+      lieu:lieu,
+      prix:prix,
+      user: {id:id}
+    };
+
+    try {
+      const response = await fetch('http://10.0.2.2:8080/voitures', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(availabilityData),
+      });
+
+      if (response.ok) {
+        console.log('Availability period saved successfully');
+        navigation.navigate('MesVoitures', { voitureDetails });
+      } else {
+        console.error('Error saving availability period');
+      }
+    } catch (error) {
+      console.error('Error saving availability period', error);
+    }
+  };
+
   return (
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
+          <TouchableOpacity onPress={() => navigation.navigate('Prixjour')}  style={styles.closeButton}>
             <Text style={styles.closeButtonText}>✕</Text>
           </TouchableOpacity>
           <Text style={styles.title}>Période de disponibilité</Text>
@@ -24,7 +92,7 @@ const Voitureindisponible = ({ visible, onClose }) => {
             value={startDate}
             onChangeText={setStartDate}
             keyboardType="numeric"
-            maxLength={10} // Longueur maximale pour JJ/MM/AAAA
+            maxLength={10}
           />
           <Text style={styles.label}>Fin</Text>
           <TextInput
@@ -33,9 +101,9 @@ const Voitureindisponible = ({ visible, onClose }) => {
             value={endDate}
             onChangeText={setEndDate}
             keyboardType="numeric"
-            maxLength={10} // Longueur maximale pour JJ/MM/AAAA
+            maxLength={10}
           />
-          <TouchableOpacity style={styles.saveButton} onPress={() => navigation.navigate('SuccessPage')}>
+          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
             <Text style={styles.saveButtonText}>Enregistrer</Text>
           </TouchableOpacity>
         </View>

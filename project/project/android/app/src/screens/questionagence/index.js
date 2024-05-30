@@ -1,76 +1,81 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
 import Icon2 from 'react-native-vector-icons/Ionicons';
-
-
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Questionagence = () => {
-  const navigation = useNavigation(); // Obtenez l'objet de navigation
-  const [boite, setBoite] = useState(null); // Nouvel état pour stocker la sélection de la boîte de vitesse
+  const navigation = useNavigation(); 
+  const route = useRoute();
+  const { marque, modele, id, country, year, immatriculation, kilometrage, carburant, boite, selectedDoors, selectedSeats } = route.params;
+  const [agence, setAgence] = useState(null);
 
+  const voitureDetails = {
+    marque, modele, id, country, year, immatriculation, kilometrage, carburant, boite, selectedDoors, selectedSeats, agence
+  };
+  console.log("id:", id); 
+  console.log("modele:", modele); 
+  console.log("marque:", marque);
+  console.log("country:", country); 
+  console.log("year:", year); 
+  console.log("immatriculation:", immatriculation); 
+  console.log("kilometrage:", kilometrage); 
+  console.log("carburant:", carburant); 
+  console.log("boite:", boite); 
+  console.log("selectedDoors:", selectedDoors); 
+  console.log("selectedSeats:", selectedSeats); 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
   const handleExit = () => {
-    // Sortir de la page et aller vers la page d'accueil
-    navigation.navigate('CarDetailsScreen'); // Remplacez 'Home' par le nom de votre écran d'accueil
+    navigation.navigate('CarDetailsScreen');
+  };
+
+  const handleSuivant = () => {
+    navigation.navigate('Lieu', { ...voitureDetails, agence });
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer} >
-      <TouchableOpacity onPress={handleGoBack}>
-        <Icon name="arrowleft" size={20} color="grey" style={styles.arrowIcon} />
-
+      <View style={styles.titleContainer}>
+        <TouchableOpacity onPress={handleGoBack}>
+          <Icon name="arrowleft" size={20} color="grey" style={styles.arrowIcon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleExit}>
           <Icon name="close" size={20} color="grey" />
         </TouchableOpacity>
-        
       </View>
-      <View><Text style={styles.title}>Exercez vous en tant qu’ agence?{"\n"}</Text></View>
-      
-      
-      
-      
-      
+      <View>
+        <Text style={styles.title}>Exercez vous en tant qu’agence?{"\n"}</Text>
+      </View>
       <View style={styles.pickerContainer}>
-      <TouchableOpacity onPress={() => setBoite('Manuelle')} style={styles.boiteContainer}>
+        <TouchableOpacity onPress={() => setAgence('oui')} style={styles.boiteContainer}>
           <Icon2
-            name={boite === 'Manuelle' ? 'radio-button-on' : 'radio-button-off'}
+            name={agence === 'oui' ? 'radio-button-on' : 'radio-button-off'}
             size={20}
             color="grey"
             style={styles.icon}
           />
-
-        <Text style={styles.picker2Label}>Oui, je suis une agence de location</Text>
+          <Text style={styles.picker2Label}>Oui, je suis une agence de location</Text>
         </TouchableOpacity>
       </View>
-
       <View style={styles.pickerContainer}>
-       <TouchableOpacity onPress={() => setBoite('Automatique')} style={styles.boiteContainer}>
+        <TouchableOpacity onPress={() => setAgence('non')} style={styles.boiteContainer}>
           <Icon2
-            name={boite === 'Automatique' ? 'radio-button-on' : 'radio-button-off'}
+            name={agence === 'non' ? 'radio-button-on' : 'radio-button-off'}
             size={20}
             color="grey"
             style={styles.icon}
           />
-        <Text style={styles.picker2Label}>Non, je suis un propriétaire particulier</Text>
-
+          <Text style={styles.picker2Label}>Non, je suis un propriétaire particulier</Text>
         </TouchableOpacity>
-        
       </View>
-      
       <View style={styles.infoBox}>
-        <Text style={styles.infoText}>Savez-vous qu’en cas de mensonge, ceci est punis par la lois</Text>
+        <Text style={styles.infoText}>Savez-vous qu’en cas de mensonge, ceci est punis par la loi</Text>
       </View>
-      
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Telephone')}>
+        <TouchableOpacity style={styles.button} onPress={handleSuivant}>
           <Text style={styles.buttonText}>Suivant</Text>
         </TouchableOpacity>
       </View>
@@ -94,7 +99,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     alignItems: 'center',
-
   },
   input: {
     height: 40,
@@ -106,19 +110,18 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     marginBottom: 20,
-    
   },
   pickerLabel: {
     fontSize: 16,
     marginBottom: 10,
     borderBottomColor:'grey',
-    borderBottomWidth:1
+    borderBottomWidth:1,
   },
-  picker2Label:{
+  picker2Label: {
     fontWeight: 'bold',
-    color:'black',
-    borderBottomColor:'grey',
-    borderBottomWidth:1
+    color: 'black',
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
   },
   picker: {
     height: 50,
@@ -147,17 +150,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#5E77AA',
     borderRadius: 8,
     marginTop: 24,
-    marginLeft:'auto',
-    bottom:-240,
+    marginLeft: 'auto',
+    bottom: -240,
   },
   buttonText: {
     color: '#fff',
     fontSize: 18,
-
   },
-  icon:{
-    marginLeft:'auto',
-    bottom:-20,
+  icon: {
+    marginLeft: 'auto',
+    bottom: -20,
   },
 });
 

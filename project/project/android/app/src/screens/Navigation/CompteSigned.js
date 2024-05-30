@@ -2,13 +2,16 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useRoute } from '@react-navigation/native';
 
-const AccountScreen = ({ navigation }) => {
+const AccountScreen = ({ navigation, route }) => {
+  const { fullName } = route.params;
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={{ uri: 'https://example.com/profile-pic.png' }} style={styles.profileImage} />
-        <Text style={styles.name}>Yasmine Aloukas</Text>
+        <Text style={styles.name}>{fullName}</Text>
         <Text style={styles.memberSince}>Membre depuis le 24 mai 2024</Text>
       </View>
       <TouchableOpacity style={styles.button}>
