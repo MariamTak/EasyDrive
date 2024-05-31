@@ -90,17 +90,25 @@ public class User implements Serializable {
 	
 
 
-	public User(Long user_id) {
-    this.user_id = user_id;
-   
-}
+	 public User(Long userId, String phoneNumber, String fullName, String email, String password, Set<Voiture> voitures) {
+        this.userId = userId;
+        this.phoneNumber = phoneNumber;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.voitures = voitures;
+    }
 
-@Override
-public String toString() {
-    return "User{" +
-            "user_id=" + user_id +
-           
-            '}';
+ @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", voitures=" + voitures +
+                '}';
 }
 }
 
